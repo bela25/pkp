@@ -10,6 +10,7 @@ class AnggotaController extends Controller
     //
     public function index()
     {
+        $anggotas=Anggota::all();
         return view('anggota.index',compact('anggotas'));
         //
     }

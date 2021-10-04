@@ -11,7 +11,7 @@
 <body class="bg-light">
  <div class="container">
   <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="logo.jpg" alt="" width="72" height="72">
+    <img class="d-block mx-auto mb-4" src="{{asset ('utama/img/logo.png')}}" alt="" width="72" height="72">
     <h2>Pendaftaran Anggota Baru PKP</h2>
   </div>
  </div>
@@ -57,12 +57,7 @@
         </div>
 
   <div class="row">
-      <div class="col-md-5 mb-5">
-            <label class="custom-file-label" for="validatedCustomFile">Upload KTP</label>
-            <input type="file" class="custom-file-input" id="validatedCustomFile" placeholder="pekerjaan" required>
-
-            </div>
-        <div class="custom-file" class="col-md-5 mb-3">
+        <div class="custom-file" class="col-md-4 mb-3">
         <label for="gambarktp">Upload KTP</label>
         <input type="file" class="custom-file-input" id="validatedCustomFile" required>
         <label class="custom-file-label" for="validatedCustomFile">Upload KTP</label>
@@ -70,11 +65,7 @@
        </div>
         </div>
 
-   <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-  <label class="form-check-label" for="defaultCheck1">
-    Jika Pernah / sedang menjadi anggota partai politik lain, maka menyatakan sejak hari ini dengan kesadaran penuh membatalkan keanggotaan di partai politik sebelumnya dan bergabung dengan Partai Keadilan dan Persatuan.
-  </label>
+   
 <hr class="mb-4">
   <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
   </form>

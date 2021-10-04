@@ -37,9 +37,9 @@
                     <div class="navbar-nav ml-auto">
                         <a href="#home" class="nav-item nav-link active">Home</a>
                         <a href="#about" class="nav-item nav-link">About</a>
-                        <a href="news.html" class="nav-item nav-link">PKP News</a>
-                        <a href="video.html" class="nav-item nav-link">Videos</a>
-                        <a href="kegiatan.html" class="nav-item nav-link">Kegiatan</a>
+                        <a href="{{route ('news')}}" class="nav-item nav-link">PKP News</a>
+                        <a href="{{route ('video')}}" class="nav-item nav-link">Videos</a>
+                        <a href="{{route ('kegiatan')}}" class="nav-item nav-link">Kegiatan</a>
                         <a href="{{route ('contact')}}" class="nav-item nav-link">Contact</a>
                         <a href="daftaranggota.html" class="nav-item nav-link">Daftar</a>
                     </div>

@@ -16,12 +16,12 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="{{asset ('utama/lib/animate/animate.min.css')}}" rel="stylesheet">
+        <link href="{{asset ('utama/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+        <link href="{{asset ('utama/lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{{asset ('utama/css/style.css')}}" rel="stylesheet">
     </head>
 
     <body data-spy="scroll" data-target=".navbar" data-offset="51">
@@ -36,12 +36,12 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav ml-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="index.html" class="nav-item nav-link">About</a>
-                        <a href="news.html" class="nav-item nav-link">PKP News</a>
-                        <a href="video.html" class="nav-item nav-link">Videos</a>
-                        <a href="kegiatan.html" class="nav-item nav-link">Kegiatan</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="#home" class="nav-item nav-link active">Home</a>
+                        <a href="#about" class="nav-item nav-link">About</a>
+                        <a href="{{route ('news')}}" class="nav-item nav-link">PKP News</a>
+                        <a href="{{route ('video')}}" class="nav-item nav-link">Videos</a>
+                        <a href="{{route ('kegiatan')}}" class="nav-item nav-link">Kegiatan</a>
+                        <a href="{{route ('contact')}}" class="nav-item nav-link">Contact</a>
                         <a href="daftaranggota.html" class="nav-item nav-link">Daftar</a>
                     </div>
                 </div>
@@ -203,19 +203,15 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/typed/typed.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/isotope/isotope.pkgd.min.js"></script>
-        <script src="lib/lightbox/js/lightbox.min.js"></script>
-        
-        <!-- Contact Javascript File -->
-        <script src="mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
+        <script src="{{asset ('utama/lib/easing/easing.min.js')}}"></script>
+        <script src="{{asset ('utama/lib/wow/wow.min.js')}}"></script>
+        <script src="{{asset ('utama/lib/waypoints/waypoints.min.js')}}"></script>
+        <script src="{{asset ('utama/lib/typed/typed.min.js')}}"></script>
+        <script src="{{asset ('utama/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+        <script src="{{asset ('utama/lib/isotope/isotope.pkgd.min.js')}}"></script>
+        <script src="{{asset ('utama/lib/lightbox/js/lightbox.min.js')}}"></script>
 
         <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <script src="{{asset  ('utama/js/main.js')}}"></script>
     </body>
 </html>

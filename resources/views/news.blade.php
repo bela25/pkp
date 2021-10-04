@@ -1,4 +1,4 @@
-{{asset (utama/<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -19,7 +19,6 @@
         <link href="{{asset ('utama/lib/animate/animate.min.css')}}" rel="stylesheet">
         <link href="{{asset ('utama/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
         <link href="{{asset ('utama/lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
-'
         <!-- Template Stylesheet -->
         <link href="{{asset ('utama/css/style.css')}}" rel="stylesheet">
     </head>
@@ -36,12 +35,12 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav ml-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="index.html" class="nav-item nav-link">About</a>
-                        <a href="news.html" class="nav-item nav-link">PKP News</a>
-                        <a href="video.html" class="nav-item nav-link">Videos</a>
-                        <a href="kegiatan.html" class="nav-item nav-link">Kegiatan</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="#home" class="nav-item nav-link active">Home</a>
+                        <a href="#about" class="nav-item nav-link">About</a>
+                        <a href="{{route ('news')}}" class="nav-item nav-link">PKP News</a>
+                        <a href="{{route ('video')}}" class="nav-item nav-link">Videos</a>
+                        <a href="{{route ('kegiatan')}}" class="nav-item nav-link">Kegiatan</a>
+                        <a href="{{route ('contact')}}" class="nav-item nav-link">Contact</a>
                         <a href="daftaranggota.html" class="nav-item nav-link">Daftar</a>
                     </div>
                 </div>

@@ -253,14 +253,14 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Halaman'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Anggota',
+            'url'  => 'anggota/index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
+            'text' => 'Bisnis',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
@@ -269,8 +269,8 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Anggota',
+                    'url'  => 'anggota',
                 ],
                 [
                     'text'    => 'level_one',
@@ -318,7 +318,7 @@ return [
             'icon_color' => 'cyan',
             'url'        => '#',
         ],
-    ],
+    ], 
 
     /*
     |--------------------------------------------------------------------------

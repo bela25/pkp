@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
@@ -26,3 +28,26 @@ Auth::routes();
 Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('anggota/index', [App\Http\Controllers\AnggotaController::class, 'index'])->name('anggota.index');
+
+Route::get('/kegiatan', function () {
+    return view('kegiatan');
+})->name('kegiatan');
+
+Route::get('/news', function () {
+    return view('news');
+})->name('news');
+
+Route::get('/video', function () {
+    return view('video');
+})->name('video');
+
+Route::get('/daftaranggota', function () {
+    return view('daftaranggota');
+})->name('daftaranggota');
