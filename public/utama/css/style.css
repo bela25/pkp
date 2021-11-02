@@ -660,8 +660,8 @@ a:focus {
 
 .experience .timeline .timeline-text h2 {
     margin: 0 0 5px 0;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 300;
 }
 
 .experience .timeline .timeline-text h4 {
@@ -861,8 +861,8 @@ a:focus {
 
 .portfolio .portfolio-img img {
     position: relative;
-    width: 100%; 
-    height: 100%; 
+    width: 80%; 
+    height: 80%; 
     object-fit: cover;
     transform: scale(1.1);
     transition: .5s;
@@ -875,7 +875,7 @@ a:focus {
 .portfolio .portfolio-text {
     position: relative;
     height: 60px;
-    width: calc(100% - 30px);
+    width: calc(90% - 30px);
     margin: -30px 15px 30px 15px;
     display: flex;
     align-items: center;
@@ -885,8 +885,8 @@ a:focus {
 
 .portfolio .portfolio-text h3 {
     width: calc(100% - 70px);
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 400;
     margin: 0 0 0 15px;
     white-space: nowrap;
     overflow: hidden;
@@ -909,6 +909,56 @@ a:focus {
     box-shadow: inset 0 0 0 0 #EF233C;
     border-color: #EF233C;
 }
+
+/*------/ Pagination-a /------*/
+.pagination-a {
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .pagination-a .pagination .page-link {
+    margin: 0 .2rem;
+    border-color: transparent;
+    padding: .5rem .8rem;
+    color: #000000;
+  }
+  
+  .pagination-a .pagination .page-link:hover, .pagination-a .pagination .page-link:active, .pagination-a .pagination .page-link:focus {
+    background-color: #EF233C;
+  }
+  
+  .pagination-a .pagination .page-link span {
+    font-size: 1.2rem;
+  }
+  
+  .pagination-a .pagination .next .page-link {
+    padding: .4rem .9rem;
+  }
+  
+  .pagination-a .pagination .page-item:last-child .page-link {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .pagination-a .pagination .page-item:first-child .page-link {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .pagination-a .pagination .page-item.disabled .page-link {
+    padding: .4rem .9rem;
+    color: black;
+  }
+  
+  .pagination-a .pagination .page-item.active .page-link {
+    background-color: #EF233C;
+  }
+  
+  .a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.3rem;
+  }
 
 
 /*******************************/
@@ -1187,6 +1237,55 @@ a:focus {
     border-color: #ffffff;
 }
 
+/*------/ Pagination-a /------*/
+.pagination-a {
+    text-decoration: none;
+  }
+  
+  .pagination-a .pagination .page-link {
+    margin: 0 .2rem;
+    border-color: transparent;
+    padding: .5rem .8rem;
+    color: #000000;
+  }
+  
+  .pagination-a .pagination .page-link:hover, .pagination-a .pagination .page-link:active, .pagination-a .pagination .page-link:focus {
+    background-color: #EF233C;
+  }
+  
+  .pagination-a .pagination .page-link span {
+    font-size: 1.2rem;
+  }
+  
+  .pagination-a .pagination .next .page-link {
+    padding: .4rem .9rem;
+  }
+  
+  .pagination-a .pagination .page-item:last-child .page-link {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .pagination-a .pagination .page-item:first-child .page-link {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .pagination-a .pagination .page-item.disabled .page-link {
+    padding: .4rem .9rem;
+    color: black;
+  }
+  
+  .pagination-a .pagination .page-item.active .page-link {
+    background-color: #EF233C;
+  }
+  
+  .a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.3rem;
+  }
+
 @media(max-width: 575.98px) {
     .team .team-text {
         padding: 0 15px;
@@ -1207,6 +1306,7 @@ a:focus {
         margin-bottom: 10px;
     }
 }
+
 
 
 /*******************************/

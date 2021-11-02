@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bisnis;
+use Illuminate\Pagination\Paginator;
 
 class BisnisController extends Controller
 {
@@ -10,6 +12,7 @@ class BisnisController extends Controller
     //
     public function index()
     {
+        $bisniss=Bisnis::paginate(2);
         return view('bisnis.index',compact('bisniss'));
         //
     }
@@ -33,11 +36,31 @@ class BisnisController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Bisnis();
-        $post ->judul = $request->get('judul');
-        $post ->keterangan = $request->get('keterangan');
-        $post->save();
-        return redirect('bisniss');
+        $this->validate($request, [
+            'gambar_produk'=> 'required|image|mimes:png,jpg,jpeg',
+            'judul'      => 'required',
+            'keterangan'    => 'required',
+            
+        ]);
+    
+        //upload image
+        $gambar_produk= $request->file('gambar_produk');
+        $gambar_produk->storeAs('public/berita', $gambar_produk->hashName());
+    
+        $bisnis = Bisnis::create([
+            'gambar_produk' => $gambar_produk->hashName(),
+            'judul'     => $request->judul,
+            'keterangan'     => $request->keterangan,
+           
+        ]);
+    
+        if($bisnis){
+            //redirect dengan pesan sukses
+            return redirect()->route('bisnis.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('bisnis.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
         //
     }
 
@@ -60,7 +83,7 @@ class BisnisController extends Controller
      */
     public function edit(Bisnis $bisnis)
     {
-        return view('bisnis.edit',compact('bisniss'));
+        return view('bisnis.update',compact('bisnis'));
         //
     }
 
@@ -71,13 +94,28 @@ class BisnisController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bisnis $bisnis)
+    public function update(Request $request)
     {
-        $bisnis ->judul = $request->get('judul');
-        $bisnis ->keterangan = $request->get('keterangan');
+        $bisnis = Bisnis::find($request->get('idbisnis'));
 
-        $bisnis->save();
-        return redirect('bisniss');
+        $file = $request->file('gambar_produk');
+        
+        if(isset($file))
+        {
+            if(isset($bisnis->gambar_produk))
+            {
+                // unlink(public_path($promosi->gambar));
+            }
+            $gambar_produk = $file->storeAs('', $file->getClientOriginalName());
+        }
+
+        $bisnis->update([
+            "judul" => $request->get('judul'),
+            "keterangan"=> $request->get('keterangan'),
+            "gambar_produk"=> $gambar_produk
+        ]);
+
+        return redirect()->route('bisnis.index');
         //
     }
 
@@ -91,8 +129,7 @@ class BisnisController extends Controller
     public function destroy(Bisnis $bisnis)
     {
         $bisnis->delete();
-        return redirect()->route('bisniss.index')
-                        ->with('success','Post has been deleted successfully');
+        return redirect()->route('bisnis.index');
         //
     }
 }

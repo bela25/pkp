@@ -14,8 +14,16 @@ class CreateAnggotasTable extends Migration
     public function up()
     {
         Schema::create('anggotas', function (Blueprint $table) {
-            $table->id();
+            $table->increments('idanggota');
+            $table->string('nama');
+            $table->string('alamat');
+            $table->string('email');
+            $table->enum('gender',['perempuan','laki-laki']);
+            $table->string('ktp');
+            $table->string('telp');
+            $table->string('gambar_ktp');
             $table->timestamps();
+            
         });
     }
 

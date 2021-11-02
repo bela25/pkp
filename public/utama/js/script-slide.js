@@ -6,15 +6,15 @@ const select = (el, all = false) => {
 		return document.querySelector(el)
 	}
 }
-let portfolioContainer = select('.portfolio-container');
-let portfolioIsotope = new Isotope(portfolioContainer, {
-	itemSelector: '.portfolio-item'
+let teamContainer = select('.team-container');
+let teamIsotope = new Isotope(teamContainer, {
+	itemSelector: '.team-item'
 });
 let filterTerpilih = "*";
 var galleryItems = document.querySelector(".gallery-items").children;
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
-const maxItem = 6;
+const maxItem = 4;
 var index = 1;
 
 function paginate() {

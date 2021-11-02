@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Anggota;
+use Illuminate\Pagination\Paginator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AnggotaExport;
 
 
 class AnggotaController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $anggotas=Anggota::all();
+        if($request->has('search')){
+            $anggotas=Anggota::where('nama','LIKE','%'. $request->search.'%')->paginate(5);
+        }else{
+           $anggotas=Anggota::paginate(5);
+        }
+
+        
+       
         return view('anggota.index',compact('anggotas'));
         //
     }
@@ -34,23 +45,48 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->get('nama');
-        $user->email = $request->get('email');
-        $user->password = bcrypt($request->get('password'));
-        $user->save();
+        $this->validate($request, [
+            'gambar_ktp'=> 'required|image|mimes:png,jpg,jpeg',
+            'nama'      => 'required',
+            'alamat'    => 'required',
+            'email'     => 'required',
+            'ktp'       => 'required',
+            'telp'      => 'required',
+            'gender'    => 'required',
+        ]);
+    
+        //upload image
+        $gambar_ktp= $request->file('gambar_ktp');
+        $gambar_ktp->storeAs('public/image', $gambar_ktp->hashName());
+    
+        $anggota = Anggota::create([
+            'gambar_ktp' => $gambar_ktp->hashName(),
+            'nama'     => $request->nama,
+            'alamat'     => $request->alamat,
+            'email'     => $request->email,
+            'ktp'     => $request->ktp,
+            'telp'     => $request->telp,
+            'gender'    =>$request->gender,
 
-        $post = new Anggota();
-        $post ->nama = $request->get('nama');
-        $post ->alamat = $request->get('alamat');
-        $post ->no_telp = $request->get('notelp');
-        $post ->no_ktp = $request->get('noktp');
-        // $post ->tempat_lahir = $request->get('tempatlahir');
-        $post ->tgl_lahir = $request->get('tgllahir');
-        $post ->gender = $request->get('customRadio');
-        $post ->user_id = $user->id;
-        $post->save();
-        return redirect('customers');
+        ]);
+    
+        if(str_replace(url('/'), '', url()->previous()) == '/daftaranggota'){
+            if($anggota){
+                //redirect dengan pesan sukses
+                return redirect()->route("daftaranggota")->with(['status' => 'Data Berhasil Disimpan!']);
+            }else{
+                //redirect dengan pesan error
+                return redirect()->route("daftaranggota")->with(['status' => 'Data Gagal Disimpan!']);
+            }
+        } elseif (auth()->user()) {
+            if($anggota){
+                //redirect dengan pesan sukses
+                return redirect()->route('anggota.index')->with(['status' => 'Data Berhasil Disimpan!']);
+            }else{
+                //redirect dengan pesan error
+                return redirect()->route('anggota.index')->with(['status' => 'Data Gagal Disimpan!']);
+            }
+        }
         //
     }
 
@@ -71,10 +107,10 @@ class AnggotaController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Anggota $anggota)
+    
+     public function edit(Anggota $anggota)
     {
-        return view('anggota.show', compact('anggota'));
-        //
+        return view('anggota.update',compact('anggota'));
     }
 
     /**
@@ -85,21 +121,33 @@ class AnggotaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Anggota $anggota)
+    
     {
-        $user->name = $request->get('nama');
-        $user->email = $request->get('email');
-        $user->save();
+        $anggota = Anggota::find($request->get('idanggota'));
 
-        $anggota->nama = $request->get('nama');
-        $anggota->alamat = $request->get('alamat');
-        $anggota->email = $request->get('email');
-        $anggota->telp = $request->get('telp');
-        $anggota->ktp = $request->get('ktp');
-        $anggota->tgl_lahir = $request->get('tgllahir');
-        $anggota->gender = $request->get('gender');
-        $anggota>save();
-        return redirect('anggotas');
+        $file = $request->file('gambar_ktp');
+        if(isset($file))
+        {
+            if(isset($anggota->gambar_ktp))
+            {
+                // unlink(public_path($promosi->gambar));
+            }
+            $gambar_ktp = $file->storeAs('', $file->getClientOriginalName());
+        }
+
+        $anggota->update([
+            "nama" => $request->get('nama'),
+            "alamat"=> $request->get('alamat'),
+            "telp" => $request->get('telp'),
+            "gender" => $request->get('gender'),
+            "email"=> $request->get('email'),
+            "ktp" => $request->get('ktp'),
+            "gambar_ktp"=> $request->get('gambar_ktp')
+        ]);
+
+        return redirect()->route('anggota.index');
         //
+       
     }
 
     /**
@@ -112,8 +160,11 @@ class AnggotaController extends Controller
     public function destroy(Anggota $anggota)
     {
         $anggota->delete();
-        return redirect()->route('anggotas.index')
-                        ->with('success','Post has been deleted successfully');
+        return redirect()->route('anggota.index');
         //
+    }
+    public function exportexcel()
+    {
+        return Excel::download(new AnggotaExport,'dataanggota.xlsx');
     }
 }

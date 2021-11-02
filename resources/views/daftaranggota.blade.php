@@ -15,54 +15,59 @@
     <h2>Pendaftaran Anggota Baru PKP</h2>
   </div>
  </div>
+ @if (session('status'))
+    <div class="alert alert-success container">
+        {{ session('status') }}
+    </div>
+@endif
+ <form role="form" action="{{route('daftaranggota.store')}}" method="post" enctype="multipart/form-data">
+{{csrf_field()}}
 <div class="container">
   <div class="row">
     <div class="col-md-12">
      <form>
      <div class="form-group">
     <label for="exampleInputEmail1">Nama</label>
-    <input type="text" class="form-control" id="firstName" placeholder="Nama Lengkap" required>
+    <input type="text" class="form-control" id="nama" placeholder="Nama Lengkap" name="nama" required>
     </div>
      
     <div class="form-group">
     <label for="exampleInputEmail1">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Jem@email.com" aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="email" placeholder="Jem@email.com" name="email" required>
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   
   <div class="form-group">
-    <label for="exampleInputPassword1">Alamat</label>
-    <input type="text" class="form-control" id="address" placeholder="Alamat" required>
+    <label for="exampleInputPassword1">Alamat Lengkap</label>
+    <input type="text" class="form-control" id="alamat" placeholder="Alamat" name="alamat" required>
   </div>
 
   <div class="form-group">
     <label for="exampleInputKtp">No KTP</label>
-    <input type="text" class="form-control" id="address" required>
+    <input type="text" class="form-control" id="ktp" name="ktp" required>
     <small class="form-text text-muted">16 angka</small>
   </div>
 
    <div class="form-group">
     <label for="exampleInputTelp">No Telp</label>
-    <input type="text" class="form-control" id="address" required>
+    <input type="text" class="form-control" id="telp" name="telp" required>
   </div>
 
-<div class="row">
-          <div class="col-md-5 mb-3">
-            <label for="gender">Jenis Kelamin</label>
-            <select class="custom-select d-block w-100" id="gender" required>
-              <option>Laki - Laki</option>
-               <option>Perempuan</option>
-            </select>
-          </div>
-        </div>
+  <div class="form-group">
+      <label>Jenis Kelamin </label>
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" type="radio" id="lakilaki" name="gender" value="Laki - laki" checked required>
+        <label for="lakilaki" class="custom-control-label">Laki-laki</label>
+      </div>
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" type="radio" id="perempuan" name="gender" value="perempuan" required>
+        <label for="perempuan" class="custom-control-label">Perempuan</label>
+      </div>
+      <br>
 
-  <div class="row">
-        <div class="custom-file" class="col-md-4 mb-3">
-        <label for="gambarktp">Upload KTP</label>
-        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-        <label class="custom-file-label" for="validatedCustomFile">Upload KTP</label>
-        <div class="invalid-feedback">Example invalid custom file feedback</div>
-       </div>
+<div class="form-group">
+  <label >Upload KTP</label>
+     <input type="file" class="form-control @error('gambar_ktp') is-invalid @enderror" name="gambar_ktp">
         </div>
 
    
@@ -72,7 +77,7 @@
     </div>
   </div>
   <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2020-2021 Company Name</p>
+    <p class="mb-1">&copy; Partai Keadilan dan Persatuan</p>
     <ul class="list-inline">
     </ul>
   </footer>
