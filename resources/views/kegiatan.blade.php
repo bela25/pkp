@@ -16,7 +16,7 @@
                             </div>
                             <div class="portfolio-text">
                                 <h3>{{ $kegiatan->judulkegiatan }}</h3>
-                                <a class="btn" href="img/portfolio-1.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{asset('/image/'.$kegiatan->gambar_kegiatan)}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>    
