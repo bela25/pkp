@@ -35,7 +35,7 @@
                 <tr>
                   <td>{{ $bisnis->judul }}</td>
                   <td>{{ $bisnis->keterangan }}</td>
-                  <td><img src="{{ asset('storage/promosi/'. $bisnis->gambar_produk) }}" height="50px"></td>
+                  <td><a href="{{ asset('promosi/'. $bisnis->gambar_produk) }}" target="_blank">{{$bisnis->gambar_produk}}</a></td>  
                   <td>  
               <a href="{{ route('editbisnis', $bisnis->idbisnis) }}" class="btn btn-primary">Ubah</a>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete{{$bisnis->idbisnis}}">Hapus</button>

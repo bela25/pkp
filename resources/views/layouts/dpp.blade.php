@@ -57,20 +57,16 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="hero-content">
                             <div class="hero-text">
-                                <p>MAU JADI ANGGOTA</p>
                                 <h1>DPP PKP JAWA TIMUR</h1>
-                                <h2></h2>
-                                <div class="typed-text">DAFTAR SEKARANG</div>
+                               <h1></h1>
                             </div>
-                            <div class="hero-btn">
-                                <a class="btn" href="">DAFTAR ANGGOTA</a>
-                                
+                           
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 d-none d-md-block">
                         <div class="hero-image">
-                            <img src="img/hero.png" alt="Hero Image">
+                           
                         </div>
                     </div>
                 </div>

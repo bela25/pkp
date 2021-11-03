@@ -12,7 +12,7 @@ class BisnisController extends Controller
     //
     public function index()
     {
-        $bisniss=Bisnis::paginate(2);
+        $bisniss=Bisnis::paginate(10);
         return view('bisnis.index',compact('bisniss'));
         //
     }
@@ -36,31 +36,27 @@ class BisnisController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'gambar_produk'=> 'required|image|mimes:png,jpg,jpeg',
-            'judul'      => 'required',
-            'keterangan'    => 'required',
-            
-        ]);
-    
-        //upload image
-        $gambar_produk= $request->file('gambar_produk');
-        $gambar_produk->storeAs('public/berita', $gambar_produk->hashName());
-    
-        $bisnis = Bisnis::create([
-            'gambar_produk' => $gambar_produk->hashName(),
-            'judul'     => $request->judul,
-            'keterangan'     => $request->keterangan,
-           
-        ]);
-    
-        if($bisnis){
-            //redirect dengan pesan sukses
-            return redirect()->route('bisnis.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('bisnis.index')->with(['error' => 'Data Gagal Disimpan!']);
+        $file = $request->file('gambar_produk');
+       
+        if($file != '')
+        {
+            $this->validate($request, [
+                'gambar_produk'=> 'required|image|mimes:png,jpg,jpeg',
+                'judul'      => 'required',
+                'keterangan'    => 'required',
+            ]);
+            $file ->move(public_path('promosi'), $file->getClientOriginalName());
         }
+       
+        $bisnis = Bisnis::create([
+            "judul" => $request->get('judul'),
+            "keterangan" =>$request->get('keterangan'),
+            "gambar_produk"=> $file->getClientOriginalName()
+        ]);
+
+        $bisnis->save();
+        return redirect()->route('bisnis.index');
+       
         //
     }
 
@@ -97,26 +93,35 @@ class BisnisController extends Controller
     public function update(Request $request)
     {
         $bisnis = Bisnis::find($request->get('idbisnis'));
-
+        $oldimage =$request->hidden_image;
         $file = $request->file('gambar_produk');
-        
-        if(isset($file))
+       
+        if($file != '')
         {
-            if(isset($bisnis->gambar_produk))
-            {
-                // unlink(public_path($promosi->gambar));
-            }
-            $gambar_produk = $file->storeAs('', $file->getClientOriginalName());
+            $this->validate($request, [
+                'gambar_produk'=> 'required|image|mimes:png,jpg,jpeg',
+                'judul'      => 'required',
+                'keterangan'      => 'required',
+            ]);
+            $imagenew=$file->getClientOriginalName();
+            $file ->move(public_path('promosi'),$imagenew);
+        }else{
+            $this->validate($request, [
+                'judul'      => 'required',
+                'keterangan'      => 'required',   
+            ]);
+            $imagenew=$oldimage;
         }
-
+       
         $bisnis->update([
             "judul" => $request->get('judul'),
-            "keterangan"=> $request->get('keterangan'),
-            "gambar_produk"=> $gambar_produk
+            "keterangan" => $request->get('keterangan'),
+            "gambar_produk"=> $imagenew
         ]);
-
+        $bisnis->save();
         return redirect()->route('bisnis.index');
-        //
+       
+      
     }
 
     /**

@@ -14,6 +14,11 @@
                   <!-- form start -->
 <form role="form" action="/updateanggota" method="post">
 	{{csrf_field()}}
+  @error('gambar_ktp')
+<div class="alert alert-danger mt-2">
+    {{ implode('', $errors->all()) }}
+  </div>
+@enderror
 
   <input type="hidden" name="idanggota" value="{{$anggota->idanggota}}">
   <div class="card-body">
@@ -42,19 +47,13 @@
       <input type="text" class="form-control" id="gender" placeholder="Isi Gender" name="gender"
       value="{{$anggota->gender}}" readonly>
     </div>
+   
     <div class="form-group">
-    <label class="font-weight-bold">Gambar KTP</label>
-     <input type="file" class="form-control @error('gambar_ktp') is-invalid @enderror" name="gambar_ktp" value='{{$anggota->gambar_ktp}}'>
-                     
-     <!-- error message untuk title -->
-     
-           @error('gambar_ktp')
-         <div class="alert alert-danger mt-2">
-            {{ $message }}
-           </div>
-          @enderror
-          </div>
-  </div>
+     <input type="file" class="form-control-file" id="gambar_ktp" name="gambar_ktp" >
+     <img id="gambar_ktp" src="{{asset('anggota/'.$anggota->gambar_ktp)}}" alt="gambar_ktp" height="200" />
+     <input  type="hidden" class="form-control-file" id="hidden_image" name="hidden_image" value="{{$anggota->gambar_ktp}}">
+            
+  </div>  
     
   <!-- /.card-body -->
 
@@ -68,3 +67,21 @@
         </div>
     </div>
 @stop
+@push('scripts')
+<script type="text/javascript">
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#gambar_ktp')
+                  .attr('src', e.target.result)
+                  .width('auto')
+                  .height(200);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+</script>
+@endpush

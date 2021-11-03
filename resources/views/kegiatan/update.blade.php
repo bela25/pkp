@@ -19,6 +19,7 @@
     {{ implode('', $errors->all()) }}
   </div>
 @enderror
+
 <input type="hidden" name="idkegiatan" value="{{$kegiatan->idkegiatan}}">
   <div class="card-body">
     <div class="form-group">

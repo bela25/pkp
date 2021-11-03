@@ -55,8 +55,7 @@
                   <td>{{ $anggota->telp }}</td>
                   <td>{{ $anggota->ktp }}</td>
                   <td>{{ $anggota->gender }}</td>
-                  <td><img src="{{ asset('storage/image/'. $anggota->gambar_ktp) }}" height="50px"></td>
-  
+                  <td> <a href="{{ asset('anggota/'. $anggota->gambar_ktp) }}" target="_blank">{{$anggota->gambar_ktp}}</a></td>
                   <td>  
               <a href="{{ route('editanggota', $anggota->idanggota) }}" class="btn btn-primary">Ubah</a>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete{{$anggota->idanggota}}">Hapus</button>

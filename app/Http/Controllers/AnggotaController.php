@@ -17,7 +17,7 @@ class AnggotaController extends Controller
         if($request->has('search')){
             $anggotas=Anggota::where('nama','LIKE','%'. $request->search.'%')->paginate(5);
         }else{
-           $anggotas=Anggota::paginate(5);
+           $anggotas=Anggota::paginate(10);
         }
 
         
@@ -45,7 +45,11 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $file = $request->file('gambar_ktp');
+       
+        if($file != '')
+        {
+            $this->validate($request, [
             'gambar_ktp'=> 'required|image|mimes:png,jpg,jpeg',
             'nama'      => 'required',
             'alamat'    => 'required',
@@ -53,40 +57,24 @@ class AnggotaController extends Controller
             'ktp'       => 'required',
             'telp'      => 'required',
             'gender'    => 'required',
-        ]);
-    
-        //upload image
-        $gambar_ktp= $request->file('gambar_ktp');
-        $gambar_ktp->storeAs('public/image', $gambar_ktp->hashName());
-    
-        $anggota = Anggota::create([
-            'gambar_ktp' => $gambar_ktp->hashName(),
-            'nama'     => $request->nama,
-            'alamat'     => $request->alamat,
-            'email'     => $request->email,
-            'ktp'     => $request->ktp,
-            'telp'     => $request->telp,
-            'gender'    =>$request->gender,
-
-        ]);
-    
-        if(str_replace(url('/'), '', url()->previous()) == '/daftaranggota'){
-            if($anggota){
-                //redirect dengan pesan sukses
-                return redirect()->route("daftaranggota")->with(['status' => 'Data Berhasil Disimpan!']);
-            }else{
-                //redirect dengan pesan error
-                return redirect()->route("daftaranggota")->with(['status' => 'Data Gagal Disimpan!']);
-            }
-        } elseif (auth()->user()) {
-            if($anggota){
-                //redirect dengan pesan sukses
-                return redirect()->route('anggota.index')->with(['status' => 'Data Berhasil Disimpan!']);
-            }else{
-                //redirect dengan pesan error
-                return redirect()->route('anggota.index')->with(['status' => 'Data Gagal Disimpan!']);
-            }
+            ]);
+            
+            $file ->move(public_path('anggota'), $file->getClientOriginalName());
         }
+       
+        $anggota = Anggota::create([
+            "nama" => $request->get('nama'),
+            "alamat" =>$request->get('alamat'),
+            "email" =>$request->get('email'),
+            "ktp" =>$request->get('ktp'),
+            "telp" =>$request->get('telp'),
+            "gender" =>$request->get('gender'),
+            "gambar_ktp"=> $file->getClientOriginalName()
+        ]);
+
+        $anggota->save();
+        return redirect()->route('anggota.index');
+    
         //
     }
 
@@ -124,17 +112,37 @@ class AnggotaController extends Controller
     
     {
         $anggota = Anggota::find($request->get('idanggota'));
-
+        $oldimage =$request->hidden_image;
         $file = $request->file('gambar_ktp');
-        if(isset($file))
+       
+        if($file != '')
         {
-            if(isset($anggota->gambar_ktp))
-            {
-                // unlink(public_path($promosi->gambar));
-            }
-            $gambar_ktp = $file->storeAs('', $file->getClientOriginalName());
-        }
+            $this->validate($request, [
+            'gambar_ktp'=> 'required|image|mimes:png,jpg,jpeg',
+            'nama'      => 'required',
+            'alamat'    => 'required',
+            'email'     => 'required',
+            'ktp'       => 'required',
+            'telp'      => 'required',
+            'gender'    => 'required',
+            ]);
 
+            $imagenew=$file->getClientOriginalName();
+            $file ->move(public_path('anggota'),$imagenew);
+
+        }else{
+            $this->validate($request, [
+            'nama'      => 'required',
+            'alamat'    => 'required',
+            'email'     => 'required',
+            'ktp'       => 'required',
+            'telp'      => 'required',
+            'gender'    => 'required',
+
+            ]);
+            $imagenew=$oldimage;
+        }
+       
         $anggota->update([
             "nama" => $request->get('nama'),
             "alamat"=> $request->get('alamat'),
@@ -142,11 +150,10 @@ class AnggotaController extends Controller
             "gender" => $request->get('gender'),
             "email"=> $request->get('email'),
             "ktp" => $request->get('ktp'),
-            "gambar_ktp"=> $request->get('gambar_ktp')
+            "gambar_ktp"=> $imagenew
         ]);
-
+        $anggota->save();
         return redirect()->route('anggota.index');
-        //
        
     }
 
