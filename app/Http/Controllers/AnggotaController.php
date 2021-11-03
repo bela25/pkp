@@ -111,38 +111,28 @@ class AnggotaController extends Controller
     public function update(Request $request, Anggota $anggota)
     
     {
+        $this->validate($request, [
+            'nama'      => 'required',
+            'alamat'    => 'required',
+            'email'     => 'required',
+            'ktp'       => 'required',
+            'telp'      => 'required',
+            'gender'    => 'required',
+        ]);
         $anggota = Anggota::find($request->get('idanggota'));
-        $oldimage =$request->hidden_image;
         $file = $request->file('gambar_ktp');
        
         if($file != '')
         {
             $this->validate($request, [
-            'gambar_ktp'=> 'required|image|mimes:png,jpg,jpeg',
-            'nama'      => 'required',
-            'alamat'    => 'required',
-            'email'     => 'required',
-            'ktp'       => 'required',
-            'telp'      => 'required',
-            'gender'    => 'required',
+                'gambar_ktp'=> 'required|image|mimes:png,jpg,jpeg',
             ]);
-
-            $imagenew=$file->getClientOriginalName();
-            $file ->move(public_path('anggota'),$imagenew);
-
-        }else{
-            $this->validate($request, [
-            'nama'      => 'required',
-            'alamat'    => 'required',
-            'email'     => 'required',
-            'ktp'       => 'required',
-            'telp'      => 'required',
-            'gender'    => 'required',
-
-            ]);
-            $imagenew=$oldimage;
+            $gambar_ktp = $file->getClientOriginalName();
+            $file ->move(public_path('anggota/'),$gambar_ktp);
+        } else {
+            $gambar_ktp = $anggota->gambar_ktp;
         }
-       
+        
         $anggota->update([
             "nama" => $request->get('nama'),
             "alamat"=> $request->get('alamat'),
@@ -150,9 +140,10 @@ class AnggotaController extends Controller
             "gender" => $request->get('gender'),
             "email"=> $request->get('email'),
             "ktp" => $request->get('ktp'),
-            "gambar_ktp"=> $imagenew
+            "gambar_ktp"=> $gambar_ktp
         ]);
         $anggota->save();
+
         return redirect()->route('anggota.index');
        
     }

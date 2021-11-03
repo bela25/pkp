@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                   <!-- form start -->
-<form role="form" action="/updateanggota" method="post">
+<form role="form" action="/updateanggota" method="post" enctype="multipart/form-data">
 	{{csrf_field()}}
   @error('gambar_ktp')
 <div class="alert alert-danger mt-2">
@@ -49,11 +49,19 @@
     </div>
    
     <div class="form-group">
-     <input type="file" class="form-control-file" id="gambar_ktp" name="gambar_ktp" >
-     <img id="gambar_ktp" src="{{asset('anggota/'.$anggota->gambar_ktp)}}" alt="gambar_ktp" height="200" />
-     <input  type="hidden" class="form-control-file" id="hidden_image" name="hidden_image" value="{{$anggota->gambar_ktp}}">
-            
-  </div>  
+    <label class="font-weight-bold">Gambar KTP</label>
+     <input type="file" class="form-control-file @error('gambar_ktp') is-invalid @enderror" name="gambar_ktp">
+     <div class="small text-primary">Kosongkan apabila tidak ingin merubah gambar!</div>
+     <img src="{{asset('anggota/'.$anggota->gambar_ktp)}}" alt="Gambar KTP" height="200" />
+     <!-- error message untuk title -->
+     
+          @error('gambar_ktp')
+            <div class="alert alert-danger mt-2">
+              {{ $message }}
+            </div>
+          @enderror
+          </div>
+  </div>
     
   <!-- /.card-body -->
 
