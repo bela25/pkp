@@ -25,9 +25,8 @@
                         </div>
                     </div>
                     @endforeach
-                 
-                                
                 </div>
+                <div class="pagination justify-content-end">{{ $bisniss->links() }}</div>
             </div>
         </div>
 

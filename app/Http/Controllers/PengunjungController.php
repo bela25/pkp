@@ -21,13 +21,13 @@ class PengunjungController extends Controller
     }
     public function kegiatan(Request $request)
     {
-        $kegiatans = Kegiatan ::all();
+        $kegiatans = Kegiatan ::paginate(10);
         return view('kegiatan', compact('kegiatans'));
 
     }
     public function bisnis(Request $request)
     {
-        $bisniss =Bisnis ::all();
+        $bisniss =Bisnis ::paginate(10);
         return view('bisnis', compact('bisniss'));
     }
 

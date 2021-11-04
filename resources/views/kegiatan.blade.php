@@ -22,6 +22,7 @@
                     </div>    
                     @endforeach
                 </div>
+                <div class="pagination justify-content-end">{{ $kegiatans->links() }}</div>
             </div>
         </div>
         <!-- Portfolio End -->      
